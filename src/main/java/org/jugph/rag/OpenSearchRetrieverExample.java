@@ -32,7 +32,7 @@ public class OpenSearchRetrieverExample {
 
     public static void main(String[] args) throws InterruptedException {
         EmbeddingStore<TextSegment> embeddingStore = OpenSearchEmbeddingStore.builder()
-                .serverUrl("7cckun0nws3z04mk7w87.us-east-1.aoss.amazonaws.com")
+                .serverUrl("<your_opensearch_server_instance>")
                 .region("us-east-1")
                 .serviceName("aoss")
                 .options(AwsSdk2TransportOptions.builder()
@@ -52,23 +52,23 @@ public class OpenSearchRetrieverExample {
 
         embeddingStore.addAll(embeddings, segments);
 
-//        EmbeddingModel embeddingModel = new BgeSmallEnV15QuantizedEmbeddingModel();
-//
-//        TextSegment segment1 = TextSegment.from("I like football.");
-//        Embedding embedding1 = embeddingModel.embed(segment1).content();
-//        embeddingStore.add(embedding1, segment1);
-//
-//        TextSegment segment2 = TextSegment.from("The weather is good today.");
-//        Embedding embedding2 = embeddingModel.embed(segment2).content();
-//        embeddingStore.add(embedding2, segment2);
-//
-//        Thread.sleep(1000); // to be sure that embeddings were persisted
-//
-//        Embedding queryEmbedding = embeddingModel.embed("What is your favourite sport?").content();
-//        List<EmbeddingMatch<TextSegment>> relevant = embeddingStore.findRelevant(queryEmbedding, 1);
-//        EmbeddingMatch<TextSegment> embeddingMatch = relevant.get(0);
-//
-//        System.out.println(embeddingMatch.score()); // 0.8144289
-//        System.out.println(embeddingMatch.embedded().text()); // I like football.
+       EmbeddingModel embeddingModel = new BgeSmallEnV15QuantizedEmbeddingModel();
+
+       TextSegment segment1 = TextSegment.from("I like football.");
+       Embedding embedding1 = embeddingModel.embed(segment1).content();
+       embeddingStore.add(embedding1, segment1);
+
+       TextSegment segment2 = TextSegment.from("The weather is good today.");
+       Embedding embedding2 = embeddingModel.embed(segment2).content();
+       embeddingStore.add(embedding2, segment2);
+
+       Thread.sleep(1000); // to be sure that embeddings were persisted
+
+       Embedding queryEmbedding = embeddingModel.embed("What is your favourite sport?").content();
+       List<EmbeddingMatch<TextSegment>> relevant = embeddingStore.findRelevant(queryEmbedding, 1);
+       EmbeddingMatch<TextSegment> embeddingMatch = relevant.get(0);
+
+       System.out.println(embeddingMatch.score()); // 0.8144289
+       System.out.println(embeddingMatch.embedded().text()); // I like football.
     }
 }
