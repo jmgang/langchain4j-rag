@@ -14,11 +14,11 @@ public class PgVectorRetrieverExample {
 
     public static void main(String[] args) {
         EmbeddingStore<TextSegment> embeddingStore = PgVectorEmbeddingStore.builder()
-                .host("maya-collection.c7fdl4gilbr5.us-east-1.rds.amazonaws.com")
+                .host("<your pgvector instance>")
                 .port(5432)
                 .database("maya_vector_db")
-                .user("jmgang")
-                .password("jgangdev997$")
+                .user("<username>")
+                .password("<password>")
                 .table("maya_table")
                 .dimension(384)
                 .build();
